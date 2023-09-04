@@ -28,6 +28,9 @@ Things you may want to cover:
 | explanation        | text   | null: false                         |
 | category_id        | integer| null: false                         |
 | condition_id       | integer| null: false                         |
+| delivery_charge_id | integer| null: false                         |
+| delivery_city_id   | integer| null: false                         |
+| delivery_days_id   | integer| null: false                         |
 | price              | integer| null: false                         |
 | user               | references| null: false, foreign_key: true   |
 ## Association
