@@ -5,8 +5,12 @@ class Item < ApplicationRecord
   belongs_to :delivery_charge
   belongs_to :delivery_city
   belongs_to :delivery_day
+  has_one_attached :image
 
+  validates :image, presence: true
   with_options presence: true do
+    validates :name, length: {maximum: 40}
+    validates :explanation,length: {maximum: 1000}
     validates :category_id, numericality: { other_than: 1 , message: "can't be blank"}
     validates :condition_id, numericality: { other_than: 1 , message: "can't be blank"}
     validates :delivery_charge_id, numericality: { other_than: 1 , message: "can't be blank"}
