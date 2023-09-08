@@ -39,17 +39,17 @@ RSpec.describe Item, type: :model do
         expect(@item.errors.full_messages).to include("Condition can't be blank")
       end
       it '配送料の負担の情報がないと出品できない' do
-        @item.delivery_charge_id = ''
+        @item.delivery_charge_id = 1
         @item.valid?
         expect(@item.errors.full_messages).to include("Delivery charge can't be blank")
       end
       it '発送元の情報がないと出品できない' do
-        @item.delivery_city_id = ''
+        @item.delivery_city_id = 1
         @item.valid?
         expect(@item.errors.full_messages).to include("Delivery city can't be blank")
       end
       it '発送までの日数の情報がないと出品できない' do
-        @item.delivery_day_id = ''
+        @item.delivery_day_id = 1
         @item.valid?
         expect(@item.errors.full_messages).to include("Delivery day can't be blank")
       end
@@ -72,6 +72,11 @@ RSpec.describe Item, type: :model do
         @item.price = '１０００'
         @item.valid?
         expect(@item.errors.full_messages).to include("Price is not a number")
+      end
+      it 'userがが紐づいてない場合登録できない' do
+        @item.user = nil
+        @item.valid?
+        expect(@item.errors.full_messages).to include("User must exist")
       end
     end
   end
