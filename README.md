@@ -35,7 +35,7 @@ Things you may want to cover:
 | user               | references| null: false, foreign_key: true   |
 ## Association
 - belongs_to :user
-- has_one :ouder
+- has_one :order
 ## ordersテーブル
 | Column             | Type   | Options     |
 | ------------------ | ------ | ----------- |
