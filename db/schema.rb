@@ -43,7 +43,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_13_040119) do
     t.string "postal_code", null: false
     t.integer "prefecture_id", null: false
     t.string "city", null: false
-    t.string "house_numbder", null: false
+    t.string "house_number", null: false
     t.string "building_name"
     t.string "telephone_number", null: false
     t.bigint "order_id", null: false
