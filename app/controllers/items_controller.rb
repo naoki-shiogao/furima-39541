@@ -55,7 +55,7 @@ class ItemsController < ApplicationController
   end
 
   def correct_user
-    unless @item.user == current_user
+    if @item.user != current_user || @item.order.present?
       redirect_to "/"
     end
   end
