@@ -3,9 +3,10 @@ class OrdersController < ApplicationController
   before_action :current_user?
   before_action :set_orders
   before_action :seller_soldout, only: [:index]
+  before_action :payjp_public_key, only: [:index, :create]
 
   def index
-    gon.public_key = ENV['PAYJP_PUBLIC_KEY']
+
     @item = Item.find(params[:item_id])
     @order_form = OrderForm.new
   end
@@ -29,6 +30,10 @@ class OrdersController < ApplicationController
     return unless @item.user_id == current_user.id
 
     redirect_to '/'
+  end
+
+  def payjp_public_key
+    gon.public_key = ENV['PAYJP_PUBLIC_KEY']
   end
 
   def set_orders
