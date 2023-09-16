@@ -6,8 +6,6 @@ class OrdersController < ApplicationController
   before_action :payjp_public_key, only: [:index, :create]
 
   def index
-
-    @item = Item.find(params[:item_id])
     @order_form = OrderForm.new
   end
 
