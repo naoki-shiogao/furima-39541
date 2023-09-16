@@ -3,7 +3,7 @@ class ItemsController < ApplicationController
   before_action :set_items, only: [:new, :create, :edit, :update]
   before_action :set_item_find, only: [:show, :edit, :update, :destroy, :correct_user]
   before_action :correct_user, only: [:edit, :update]
-
+  before_action :set_item_find, only: [:show, :edit, :update]
   def index
     @items = Item.includes(:user).order('created_at DESC')
   end
@@ -33,11 +33,6 @@ class ItemsController < ApplicationController
     else
       render 'edit', status: :unprocessable_entity
     end
-  end
-
-  def destroy
-    @item.destroy
-    redirect_to '/'
   end
 
   private
