@@ -5,7 +5,7 @@ class ItemsController < ApplicationController
   before_action :correct_user, only: [:edit, :update]
 
   def index
-    @items = Item.includes(:user).order("created_at DESC")
+    @items = Item.includes(:user).order('created_at DESC')
   end
 
   def new
@@ -15,9 +15,9 @@ class ItemsController < ApplicationController
   def create
     @item = Item.create(item_params)
     if @item.save
-      redirect_to "/"
+      redirect_to '/'
     else
-      render "new", status: :unprocessable_entity
+      render 'new', status: :unprocessable_entity
     end
   end
 
@@ -31,23 +31,20 @@ class ItemsController < ApplicationController
     if @item.update(item_params)
       redirect_to item_path
     else
-      render "edit", status: :unprocessable_entity
+      render 'edit', status: :unprocessable_entity
     end
   end
 
   def destroy
     @item.destroy
-    redirect_to "/"
+    redirect_to '/'
   end
-
-
-
-
 
   private
 
   def item_params
-    params.require(:item).permit(:name, :explanation, :category_id, :condition_id, :delivery_charge_id, :delivery_city_id, :delivery_day_id, :price, :image).merge(user_id: current_user.id)
+    params.require(:item).permit(:name, :explanation, :category_id, :condition_id, :delivery_charge_id, :delivery_city_id,
+                                 :delivery_day_id, :price, :image).merge(user_id: current_user.id)
   end
 
   def set_item_find
@@ -55,9 +52,9 @@ class ItemsController < ApplicationController
   end
 
   def correct_user
-    if @item.user != current_user || @item.order.present?
-      redirect_to "/"
-    end
+    return unless @item.user != current_user || @item.order.present?
+
+    redirect_to '/'
   end
 
   def set_items
