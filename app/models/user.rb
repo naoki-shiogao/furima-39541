@@ -6,6 +6,7 @@ class User < ApplicationRecord
 
   has_many :items
   has_many :orders
+  has_many :favorites, dependent: :destroy 
 
   with_options presence: true do
     # ひらがな、カタカナ、漢字のみ許可する

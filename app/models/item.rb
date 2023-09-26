@@ -8,6 +8,7 @@ class Item < ApplicationRecord
   belongs_to :user
   has_one :order
   has_one_attached :image
+  has_many :favorites, dependent: :destroy
 
   validates :image, presence: true
   with_options presence: true do
@@ -20,4 +21,9 @@ class Item < ApplicationRecord
     validates :delivery_day_id, numericality: { other_than: 1, message: "can't be blank" }
     validates :price, numericality: { only_integer: true, greater_than_or_equal_to: 300, less_than_or_equal_to: 9_999_999 }
   end
+
+  def favorited_by?(user)
+    favorites.where(user_id: user.id).exists?
+  end
+
 end
