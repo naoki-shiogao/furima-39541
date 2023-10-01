@@ -5,10 +5,12 @@
     <h2 class='title'>ユーザー詳細</h2>
     <div class="">
       <p class="user-name"><%= @user.nickname %></p>
-      <% if user_signed_in? && current_user.is_following?(@user) %>
-        <%= link_to "フォローを外す", user_relationship_path(@user), class:"favorite-star-icon", remote: true ,data: { turbo_method: :delete } %>
-      <% else %>
-        <%= link_to "フォローする", user_relationships_path(@user), class:"favorite-star-icon", remote: true ,data: { turbo_method: :post } %>
+      <% if current_user.id != @user.id %>
+        <% if user_signed_in? && current_user.is_following?(@user) %>
+          <%= link_to "フォローを外す", user_relationship_path(@user), class:"favorite-star-icon", remote: true ,data: { turbo_method: :delete } %>
+        <% else %>
+          <%= link_to "フォローする", user_relationships_path(@user), class:"favorite-star-icon", remote: true ,data: { turbo_method: :post } %>
+        <% end %>
       <% end %>
     </div>
     <div class="subtitle" >
