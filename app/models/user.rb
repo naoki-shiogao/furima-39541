@@ -23,4 +23,8 @@ class User < ApplicationRecord
   validates :password, format: { with: /\A(?=.*?[a-z])(?=.*?\d)[a-z\d]+\z/i, message: 'は半角英数を両方含む必要があります' }
   validates :nickname, presence: true
   validates :birth_day, presence: true
+
+  def is_following?(user)
+    followings.where(id: user.id).exists?
+  end
 end

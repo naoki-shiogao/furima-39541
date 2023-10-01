@@ -1,0 +1,55 @@
+<%= render "shared/header" %>
+
+<%# 商品一覧 %>
+  <div class='item-contents'>
+    <h2 class='title'>ユーザー詳細</h2>
+    <div class="">
+      <p class="user-name"><%= @user.nickname %></p>
+      <% if user_signed_in? && current_user.is_following?(@user) %>
+        <%= link_to "フォローを外す", user_relationship_path(@user), class:"favorite-star-icon", remote: true ,data: { turbo_method: :delete } %>
+      <% else %>
+        <%= link_to "フォローする", user_relationships_path(@user), class:"favorite-star-icon", remote: true ,data: { turbo_method: :post } %>
+      <% end %>
+    </div>
+    <div class="subtitle" >
+      商品投稿一覧
+    </div>
+    <ul class='item-lists'>
+      <% @items.each do |item| %>
+      <li class='list'>
+        <%= link_to item_path(item.id) do %>
+        <div class='item-img-content'>
+          <%= image_tag item.image, class: "item-img" if item.image.attached? %>
+
+          <% if item.order.present? %>
+            <div class='sold-out'>
+              <span>Sold Out!!</span>
+            </div>
+          <% end %>
+
+        </div>
+        <div class='item-info'>
+          <h3 class='item-name'>
+            <%= item.name %>
+          </h3>
+          <div class='item-price'>
+            <span><%= item.price %>円<br><%= item.delivery_charge.name %></span>
+            <div class='star-btn'>
+              <%= image_tag "star.png", class:"star-icon" %>
+              <span class='star-count'><%= item.favorites.length %></span>
+            </div>
+          </div>
+        </div>
+        <% end %>
+      </li>
+      <% end %>
+    </ul>
+  </div>
+<%# フォロー、フォロワー数 %>
+  <h2 class='follow_title'>フォロー</h2>
+  <div class="follow-container">
+    <div >フォロー：<%= @user.followings.count %></div>
+    <div >フォロワー：<%= @user.followers.count %></div>
+  </div>
+
+<%= render "shared/footer" %>
